@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '@/components/login/Login' // 登录页
-import Index from '@/components/Index'
+import Index from '@/components/Index' // 验证页
+import Home from '@/components/home/Home'
 Vue.use(VueRouter)
 
 const routes = [
@@ -27,9 +28,19 @@ const routes = [
     name: 'Index',
     component: Index,
     meta: {
-      title: '登录',
+      title: '验证',
       index: 2, 
       requiresAuth: false 
+    }
+  },
+  {
+    path: '/home',
+    name: 'Home',
+    component: Home,
+    meta: {
+      title: '主页',
+      index: 3, 
+      requiresAuth: true 
     }
   }
 ]

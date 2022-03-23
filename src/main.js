@@ -2,8 +2,36 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-
+import http from '@/utils/http.js' // 引入封装的axios
 Vue.config.productionTip = false
+Vue.prototype.$http = http // 全局挂载封装的axios方法
+
+/*全局使用Toast*/
+import { Toast } from 'vant'
+Vue.use(Toast)
+
+// 全局路由守卫
+router.beforeEach((to, from, next) => {
+  // 判断是否页面是否需要登录
+  if (to.meta.requiresAuth) {
+    const isLogin = JSON.parse(localStorage.getItem('userInfo'))
+    if (isLogin) {
+      next()
+    } else {
+      next('/login')
+    }
+  } else {
+    next()
+  }
+  // 如果要去login页面
+  if (to.fullPath === '/login') {
+    if (isLogin) {
+      next('/home')
+    } else {
+      next()
+    }
+  }
+})
 
 new Vue({
   router,
