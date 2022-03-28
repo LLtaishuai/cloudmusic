@@ -24,10 +24,12 @@ http.interceptors.response.use(config => {
 http.interceptors.request.use(config => {
   // 添加时间戳，防止缓存
   if (config.method === 'post') {
-    config.data = {
-      ...config.data,
-      timestamp: Date.parse(new Date())
-    }
+    // config.data = {
+    //   ...config.data,
+    //   timestamp: Date.parse(new Date())
+    // }
+    // 时间戳必须拼接在URL上
+    config.url += '?timestamp=' + Date.parse(new Date())
   }
   return config
 })

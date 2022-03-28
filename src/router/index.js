@@ -2,7 +2,9 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '@/components/login/Login' // 登录页
 import Index from '@/components/Index' // 验证页
-import Home from '@/components/home/Home'
+import Home from '@/components/Home' // 主页
+
+import SearchMusic from '@/components/home/SearchMusic'
 Vue.use(VueRouter)
 
 const routes = [
@@ -33,13 +35,23 @@ const routes = [
       requiresAuth: false 
     }
   },
-  {
+  { // 主页
     path: '/home',
     name: 'Home',
     component: Home,
     meta: {
       title: '主页',
       index: 3, 
+      requiresAuth: true 
+    }
+  },
+  { // 音乐搜索
+    path: '/searchmusic',
+    name: 'searchMusic',
+    component: SearchMusic,
+    meta: {
+      title: 'SearchMusic',
+      index: 4, 
       requiresAuth: true 
     }
   }

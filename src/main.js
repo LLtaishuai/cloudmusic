@@ -12,9 +12,10 @@ Vue.use(Toast)
 
 // 全局路由守卫
 router.beforeEach((to, from, next) => {
-  // 判断是否页面是否需要登录
+  // 获取登录状态
+  const isLogin = JSON.parse(localStorage.getItem('userInfo'))
+  // 判断页面是否需要登录
   if (to.meta.requiresAuth) {
-    const isLogin = JSON.parse(localStorage.getItem('userInfo'))
     if (isLogin) {
       next()
     } else {
