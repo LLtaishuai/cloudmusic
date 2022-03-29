@@ -4,7 +4,7 @@
   </div>
 </template>
 
-<style>
+<style lang="scss">
 /* 初始化默认样式 */
 * {
   padding: 0;
@@ -29,6 +29,31 @@ a {
 }
 ul li {
 	list-style:none;
+}
+/* 小标题样式 */
+.top_title {
+  width: 98%;
+  margin: 0 auto;
+  p {
+    margin: 5px;
+    color: red;
+    font-weight: bold;
+    font-size: 15px;
+  }
+}
+/* nav-bar */
+.van-nav-bar__title {
+	font-size:13px !important;
+}
+.van-nav-bar .van-icon {
+	color:#b72020;
+	font-size:14px;
+	font-weight:bold;
+}
+.van-nav-bar__text {
+	color:#b72020;
+	font-size:14px;
+	font-weight:bold;
 }
 </style>
 

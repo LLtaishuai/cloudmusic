@@ -4,7 +4,9 @@ import Login from '@/components/login/Login' // 登录页
 import Index from '@/components/Index' // 验证页
 import Home from '@/components/Home' // 主页
 
-import SearchMusic from '@/components/home/SearchMusic'
+import SearchMusic from '@/components/searchmusic/SearchMusic' // 搜索
+import MvPlay from '@/components/home/MvPlay' // MV播放
+import MusicPlay from '@/components/home/MusicPlay' // music播放
 Vue.use(VueRouter)
 
 const routes = [
@@ -52,6 +54,26 @@ const routes = [
     meta: {
       title: 'SearchMusic',
       index: 4, 
+      requiresAuth: true 
+    }
+  },
+  { // MV播放
+    path: '/mvplay',
+    name: 'MvPlay',
+    component: MvPlay,
+    meta: {
+      title: 'MvPlay',
+      index: 5, 
+      requiresAuth: true 
+    }
+  },
+  { // MV播放
+    path: '/musicplay',
+    name: 'MusicPlay',
+    component: MusicPlay,
+    meta: {
+      title: 'MusicPlay',
+      index: 6, 
       requiresAuth: true 
     }
   }
