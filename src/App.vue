@@ -46,11 +46,11 @@ ul li {
 	font-size:13px !important;
 }
 .van-nav-bar .van-icon {
-	color:#b72020;
-	font-size:14px;
-	font-weight:bold;
+	color:#b72020 !important;
+	font-size:14px !important;
+	font-weight:bold !important;
 }
-.van-nav-bar__text {
+.van-nav-bar__left .van-nav-bar__text {
 	color:#b72020;
 	font-size:14px;
 	font-weight:bold;

@@ -5,7 +5,7 @@
     </div>
     <div class="musicbox">
       <ul>
-        <li v-for="item in musicList" :key="item.id" @click="musicPlay(item)">
+        <li v-for="item in musicList" :key="item.id" @click="musicPlay(item)" >
           <div class="pic">
             <van-image
               width="100%"
@@ -28,7 +28,7 @@
 <script>
 import Vue from 'vue'
 import __Config from '@/api/config.js'
-import { Image as VanImage } from 'vant'
+import { Image as VanImage, Toast } from 'vant'
 import { Lazyload } from 'vant'
 
 Vue.use(Lazyload)
@@ -46,17 +46,26 @@ export default {
     async getMusicList () {
       const res = await this.$http.get(__Config.getNewSong)
       if (res.code !== 200) {
-        return Toast('newSong加载错误！')
+        return this.$toast('newSong加载错误！')
       }
       this.musicList = res.result
       console.log(res)
     },
-    musicPlay (musicInfo) {
+    async musicPlay (musicInfo) {
       // 判断歌曲是否能播放
-
-
-
+      const res = await this.$http.get(__Config.isPlaySong, { id: musicInfo.id})
+      if (!res.success) {
+        return this.$toast(res.message)
+      }
       // 跳转到'/musicplay'
+      this.$router.push({
+        path: '/musicplay',
+        query: {
+          id: musicInfo.id,
+          pic: musicInfo.picUrl,
+          name: musicInfo.name
+        }
+      })
     }
   }
 }

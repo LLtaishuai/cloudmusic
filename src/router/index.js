@@ -3,7 +3,8 @@ import VueRouter from 'vue-router'
 import Login from '@/components/login/Login' // 登录页
 import Index from '@/components/Index' // 验证页
 import Home from '@/components/Home' // 主页
-
+import Video from '@/components/Video' // 视频页
+import User from '@/components/User' // 用户页
 import SearchMusic from '@/components/searchmusic/SearchMusic' // 搜索
 import MvPlay from '@/components/home/MvPlay' // MV播放
 import MusicPlay from '@/components/home/MusicPlay' // music播放
@@ -75,6 +76,26 @@ const routes = [
       title: 'MusicPlay',
       index: 6, 
       requiresAuth: true 
+    }
+  },
+  { // 视频
+    path: '/video',
+    name: 'Video',
+    component: Video,
+    meta: {
+      title: 'video',
+      index: 7,
+      requiresAuth: true
+    }
+  },
+  { // 我的
+    path: '/user',
+    name: 'User',
+    component: User,
+    meta: {
+      title: 'User',
+      index: 8,
+      requiresAuth: true
     }
   }
 ]

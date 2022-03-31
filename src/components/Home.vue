@@ -32,6 +32,7 @@
     <!-- 新歌 -->
     <new-music></new-music>
     <!-- 底部 -->
+    <Footer></Footer>
   </div>
 </template>
 
@@ -45,7 +46,7 @@ import { Swipe, SwipeItem } from 'vant'
 import { Grid, GridItem } from 'vant'
 import NewMv from '@/components/home/NewMv.vue'
 import NewMusic from '@/components/home/NewMusic.vue'
-
+import Footer from '@/components/Footer.vue'
 Vue.use(Grid)
 Vue.use(GridItem)
 Vue.use(Swipe)
@@ -54,7 +55,7 @@ Vue.use(Lazyload)
 Vue.use(Search)
 Vue.use(Sticky)
 export default {
-  components: { NewMv, NewMusic },
+  components: { NewMv, NewMusic, Footer },
   name: 'Home',
   created () {
     this.getBannerImg()

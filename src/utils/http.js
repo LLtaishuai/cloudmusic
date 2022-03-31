@@ -1,6 +1,7 @@
 import Vue from 'vue'
+import { Toast } from 'vant'
 import axios from 'axios'
-
+Vue.use(Toast)
 
 // 新建一个axios实例，并配置
 const http = axios.create({
@@ -43,7 +44,7 @@ const get = (url, params) => {
     .then(res => {
       resolve(res.data)
     }).catch(err => {
-      Toast(err)
+      reject(err.data)
   })
   })
 }
@@ -54,7 +55,7 @@ const post = (url, params) => {
     .then(res => {
       resolve(res.data)
     }).catch(err => {
-      Toast('请求失败')
+      reject(err.data)
   })
   })
 }

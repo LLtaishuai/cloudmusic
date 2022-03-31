@@ -38,7 +38,7 @@ export default {
     async getNewMv () {
       const data = await this.$http.get(__Config.getNewMV, { limit: 6 } )
       if (data.code !== 200) {
-        return Toast('newMV加载错误！')
+        return this.$toast('newMV加载错误！')
       }
       this.newMvList = data.data
       // console.log(data)

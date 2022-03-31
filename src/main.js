@@ -9,7 +9,7 @@ Vue.prototype.$http = http // 全局挂载封装的axios方法
 /*全局使用Toast*/
 import { Toast } from 'vant'
 Vue.use(Toast)
-
+Vue.prototype.$toast = Toast
 // 全局路由守卫
 router.beforeEach((to, from, next) => {
   // 获取登录状态
