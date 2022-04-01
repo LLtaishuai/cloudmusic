@@ -55,5 +55,9 @@ ul li {
 	font-size:14px;
 	font-weight:bold;
 }
+/* van-search */
+.van-search__action {
+  color: #b80c0c !important;
+}
 </style>
 

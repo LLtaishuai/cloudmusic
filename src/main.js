@@ -5,7 +5,10 @@ import store from './store'
 import http from '@/utils/http.js' // 引入封装的axios
 Vue.config.productionTip = false
 Vue.prototype.$http = http // 全局挂载封装的axios方法
-
+/* 全局使用视频播放插件  */
+import Video from 'video.js'
+import 'video.js/dist/video-js.css'
+Vue.prototype.$video = Video
 /*全局使用Toast*/
 import { Toast } from 'vant'
 Vue.use(Toast)

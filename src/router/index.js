@@ -3,11 +3,15 @@ import VueRouter from 'vue-router'
 import Login from '@/components/login/Login' // 登录页
 import Index from '@/components/Index' // 验证页
 import Home from '@/components/Home' // 主页
-import Video from '@/components/Video' // 视频页
+import Hot from '@/components/Hot' // 热点页
 import User from '@/components/User' // 用户页
 import SearchMusic from '@/components/searchmusic/SearchMusic' // 搜索
 import MvPlay from '@/components/home/MvPlay' // MV播放
 import MusicPlay from '@/components/home/MusicPlay' // music播放
+import DayMusic from '@/components/home/DayMusic' // 每日推荐
+import Radio from '@/components/home/Radio' // 电台
+import Singer from '@/components/home/Singer' // 歌手
+import Video from '@/components/home/Video' // 歌手
 Vue.use(VueRouter)
 
 const routes = [
@@ -17,7 +21,7 @@ const routes = [
     path: '/',
     redirect: '/login'
   },
-  {
+  { // login
     path: '/login',
     name: 'Login',
     component: Login,
@@ -28,7 +32,7 @@ const routes = [
       requiresAuth: false // 是否需要权限
     }
   },
-  {
+  { // index
     path: '/index',
     name: 'Index',
     component: Index,
@@ -58,7 +62,7 @@ const routes = [
       requiresAuth: true 
     }
   },
-  { // MV播放
+  { // 视频播放
     path: '/mvplay',
     name: 'MvPlay',
     component: MvPlay,
@@ -68,7 +72,7 @@ const routes = [
       requiresAuth: true 
     }
   },
-  { // MV播放
+  { // 音乐播放
     path: '/musicplay',
     name: 'MusicPlay',
     component: MusicPlay,
@@ -79,11 +83,11 @@ const routes = [
     }
   },
   { // 视频
-    path: '/video',
-    name: 'Video',
-    component: Video,
+    path: '/hot',
+    name: 'Hot',
+    component: Hot,
     meta: {
-      title: 'video',
+      title: 'hot',
       index: 7,
       requiresAuth: true
     }
@@ -95,6 +99,46 @@ const routes = [
     meta: {
       title: 'User',
       index: 8,
+      requiresAuth: true
+    }
+  },
+  { // 每日推荐
+    path: '/daymusic',
+    name: 'DayMusic',
+    component: DayMusic,
+    meta: {
+      title: 'DayMusic',
+      index: 9,
+      requiresAuth: true
+    }
+  },
+  { // 电台
+    path: '/radio',
+    name: 'Radio',
+    component: Radio,
+    meta: {
+      title: 'Radio',
+      index: 10,
+      requiresAuth: true
+    }
+  },
+  { // 视频
+    path: '/video',
+    name: 'Video',
+    component: Video,
+    meta: {
+      title: 'Video',
+      index: 11,
+      requiresAuth: true
+    }
+  },
+  { // 歌手
+    path: '/singer',
+    name: 'Singer',
+    component: Singer,
+    meta: {
+      title: 'Singer',
+      index: 12,
       requiresAuth: true
     }
   }

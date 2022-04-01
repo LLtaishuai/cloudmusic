@@ -44,12 +44,11 @@ export default {
   },
   methods: {
     async getMusicList () {
-      const res = await this.$http.get(__Config.getNewSong)
+      const res = await this.$http.post(__Config.getNewSong, { cache: true })
       if (res.code !== 200) {
         return this.$toast('newSong加载错误！')
       }
       this.musicList = res.result
-      console.log(res)
     },
     async musicPlay (musicInfo) {
       // 判断歌曲是否能播放

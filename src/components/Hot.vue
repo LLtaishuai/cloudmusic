@@ -1,7 +1,7 @@
 <template>
   <div>
     
-    <p>video</p>
+    <p>hot</p>
     <Footer />
   </div>
 </template>

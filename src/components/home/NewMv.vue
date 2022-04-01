@@ -36,7 +36,7 @@ export default {
   methods: {
     // 得到MV数据
     async getNewMv () {
-      const data = await this.$http.get(__Config.getNewMV, { limit: 6 } )
+      const data = await this.$http.post(__Config.getNewMV, { limit: 6, cache: true } )
       if (data.code !== 200) {
         return this.$toast('newMV加载错误！')
       }
@@ -48,7 +48,8 @@ export default {
       this.$router.push({
         name: 'MvPlay',
         query: {
-          id: mvInfo.id
+          id: mvInfo.id,
+          pic: mvInfo.cover
         }
       })
     }

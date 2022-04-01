@@ -22,10 +22,10 @@
     </van-swipe>
     <!-- 格子导航 -->
     <van-grid clickable :column-num="4">
-      <van-grid-item icon="http://pay.91yunshi.com/share/html/userTextImg/home1.png" text="每日推荐" to="/" />
-      <van-grid-item icon="http://pay.91yunshi.com/share/html/userTextImg/home2.png" text="电台" to="/" />
-      <van-grid-item icon="http://pay.91yunshi.com/share/html/userTextImg/home3.png" text="视频" to="/" />
-      <van-grid-item icon="http://pay.91yunshi.com/share/html/userTextImg/home4.png" text="歌手" to="/" />
+      <van-grid-item icon="http://pay.91yunshi.com/share/html/userTextImg/home1.png" text="每日推荐" to="/daymusic" />
+      <van-grid-item icon="http://pay.91yunshi.com/share/html/userTextImg/home2.png" text="电台" to="/radio" />
+      <van-grid-item icon="http://pay.91yunshi.com/share/html/userTextImg/home3.png" text="视频" to="/video" />
+      <van-grid-item icon="http://pay.91yunshi.com/share/html/userTextImg/home4.png" text="歌手" to="/singer" />
     </van-grid>
     <!-- 新MV -->
     <new-mv></new-mv>
@@ -82,7 +82,7 @@ export default {
     },
     async getBannerImg () {
       // type=1:android,type=2:ios,type=3:ipad
-      const data = await this.$http.get(__Config.getBannerImg, { type: 2 } )
+      const data = await this.$http.post(__Config.getBannerImg, { type: 2, cache: true } )
       if (data.code !== 200) {
         return Toast('banner加载错误！')
       }
