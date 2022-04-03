@@ -26,16 +26,27 @@
     </div>
     <Footer />
 
-  <!-- 弹出层 -->
-  <van-popup 
-    v-model="show" 
-    position="left" 
-    :style="{ width: '70%', height: '100%' }"
-    closeable
-    @open="open"
-    >
-    <van-button type="primary">主要按钮</van-button>
-  </van-popup>
+    <!-- 弹出层 -->
+    <van-popup 
+      v-model="popupShow" 
+      position="left" 
+      :style="{ width: '70%', height: '100%' }"
+      closeable
+      @open="open"
+      >
+      <div class="card loginoutBtn" @click="sheetShow = !sheetShow">
+        退出登录
+      </div>
+      
+    </van-popup>
+    <!-- 动作面板 -->
+    <van-action-sheet
+      v-model="sheetShow"
+      :actions="actions"
+      cancel-text="取消"
+      close-on-click-action
+      @select="loginout"
+    />
   </div>
 </template>
 
@@ -46,9 +57,9 @@ import { mapState } from 'vuex'
 import Vue from 'vue'
 import { Sticky } from 'vant'
 import { Popup } from 'vant'
-import { Button } from 'vant'
+import { ActionSheet } from 'vant'
 
-Vue.use(Button)
+Vue.use(ActionSheet)
 Vue.use(Popup)
 
 Vue.use(Sticky)
@@ -61,7 +72,9 @@ export default {
     return {
       userProfile: {},
       level: 0,
-      show: false
+      popupShow: false,
+      sheetShow: false,
+      actions: [{ name: '退出' }, { name: '切换用户' }]
     }
   },
   methods: {
@@ -72,13 +85,32 @@ export default {
       }
       this.userProfile = res.profile
       this.level = res.level
-      console.log(res)
     },
+    // 点击set, 打开弹出层
     userSet () {
-      this.show = true
+      this.popupShow = true
     },
-    open () {
-      console.log('open')
+    // 弹出层打开回调
+    open () {},
+    // 退出登录
+    async loginout (action) {
+      if (action.name === '退出') {
+        const res = await this.$http.get(__Config.loginout)
+        if (res.code !== 200) {
+          return this.$toast('退出失败')
+        }
+        // 删除登录信息
+        localStorage.removeItem('userInfo')
+        this.$router.push('/login')
+      }
+      if (action.name === '切换用户') {
+        const res = await this.$http.get(__Config.loginout)
+        if (res.code !== 200) {
+          return this.$toast('切换用户失败')
+        }
+        localStorage.removeItem('userInfo')
+        this.$router.push('/index')
+      }
     }
 
   },
@@ -149,6 +181,16 @@ export default {
       font-size: 20px;
     }
 
+  }
+}
+.van-popup {
+  background: #f7f8fa;
+  .loginoutBtn {
+    position: fixed;
+    bottom: 0;
+    text-align: center;
+    color: red;
+    font-weight: bold;
   }
 }
 </style>

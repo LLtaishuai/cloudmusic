@@ -1,7 +1,10 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '@/components/login/Login' // 登录页
+import Register from '@/components/Register' // 注册页
 import Index from '@/components/Index' // 验证页
+import Scan from '@/components/Scan' // 扫码
+import Auth from '@/components/Auth' // 验证码
 import Home from '@/components/Home' // 主页
 import Hot from '@/components/Hot' // 热点页
 import User from '@/components/User' // 用户页
@@ -32,12 +35,42 @@ const routes = [
       requiresAuth: false // 是否需要权限
     }
   },
+  { // register
+    path: '/register',
+    name: 'Register',
+    component: Register,
+    meta: { 
+      title: '注册',
+      index: 1, // 根据index 确定前进或回退
+      requiresAuth: false // 是否需要权限
+    }
+  },
   { // index
     path: '/index',
     name: 'Index',
     component: Index,
     meta: {
       title: '验证',
+      index: 2, 
+      requiresAuth: false 
+    }
+  },
+  { // 扫码登录
+    path: '/scan',
+    name: 'Scan',
+    component: Scan,
+    meta: {
+      title: '扫码登录',
+      index: 2, 
+      requiresAuth: false 
+    }
+  },
+  { // 验证码登录
+    path: '/auth',
+    name: 'Auth',
+    component: Auth,
+    meta: {
+      title: '验证码登录',
       index: 2, 
       requiresAuth: false 
     }

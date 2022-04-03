@@ -5,9 +5,15 @@
         <!-- 给div添加背景图片 -->
       </div>
     </div>
-    <div class="logobn" @click="tellogin">
-      <p>立即登录</p>
+    <div class="btn">
+      <div class="logobn" @click="tellogin">
+        <p>立即登录</p>
+      </div>
+      <div class="logobn sign" @click="registerBtn">
+        <p>注册</p>
+      </div>
     </div>
+    
   </div>
 </template>
 
@@ -17,6 +23,9 @@ export default {
   methods: {
     tellogin () {
       this.$router.push('/index')
+    },
+    registerBtn () {
+      this.$router.push('/register')
     }
   }
 }
@@ -29,11 +38,16 @@ export default {
   // css3渐变函数gradient
   background-image: linear-gradient(#e66465, #000);
   // 触发BFC规范，解决.logo的margin传递
-  overflow: hidden;
+  // overflow: hidden;
+  // 弹性布局
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
   .logo {
     width: 100px;
     height: 100px;
-    margin: 50px auto; // 水平居中
+    // margin: 50px auto; // 水平居中
     .logopic {
       width: 100%;
       height: 100%;
@@ -43,17 +57,26 @@ export default {
       animation: logopic 2s infinite linear alternate;
     }
   }
-  .logobn {
-    width: 74%;
-    height: 45px;
-    background: #fff;
-    border-radius: 37px;
-    margin: 300px auto 0 auto;
-    text-align: center;
-    line-height: 45px;
-    color: red;
-    font-weight: bold;
+  .btn {
+    width: 100%;
+    .logobn {
+      width: 74%;
+      height: 45px;
+      background: #fff;
+      border-radius: 37px;
+      border: 1px solid #fff;
+      margin: 50px auto 0 auto;
+      text-align: center;
+      line-height: 45px;
+      color: #db2c1f;
+      font-weight: bold;
+    }
+    .sign {
+      background: #db2c1f;
+      color: #fff;
+    }
   }
+
 }
 @keyframes logopic {
   0%{ transform: scale(1, 1); }
