@@ -1,14 +1,18 @@
 <template>
   <div class="login">
+    <!-- logo -->
     <div class="logo">
       <div class="logopic">
         <!-- 给div添加背景图片 -->
       </div>
     </div>
+    <!-- 按钮 -->
     <div class="btn">
+      <!-- 登录 -->
       <div class="logobn" @click="tellogin">
         <p>立即登录</p>
       </div>
+      <!-- 注册 -->
       <div class="logobn sign" @click="registerBtn">
         <p>注册</p>
       </div>

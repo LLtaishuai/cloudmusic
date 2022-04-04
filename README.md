@@ -34,4 +34,4 @@
   2. 处理lrc歌词，同步播放展示
   3. videojs 插件实现播放视频。 注意：初始化的时机，和在组件要销毁之前销毁掉。
   4. 移动端没有hover，用active实现类似效果。并配和touchstart事件防止active在移动端失效
-  5. 二维码登录
+  5. 二维码登录问题。 原因：请求没有携带cookies。解决：axios配置withcredentials = true

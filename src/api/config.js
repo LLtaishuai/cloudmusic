@@ -22,7 +22,11 @@ const apiConfig = {
   getMvUrl: '/mv/url', // 获取mv的url地址
   getMvInfo: '/mv/detail/info', // 可获取对应 MV 点赞转发评论数数据
   getUserDetail: '/user/detail', // 参数：id
-  loginout: '/logout' // 退出登录
+  loginout: '/logout', // 退出登录
+  getVideoCate: '/video/category/list', // 获取视频分类
+  getVideoGroup: '/video/group', // 参数id：标签或分类id，获取分类下的视频
+  getVideoUrl: '/video/url', // 参数id
+  getVideoInfo: '/video/detail/info' // 参数vid
 }
 
 export default apiConfig

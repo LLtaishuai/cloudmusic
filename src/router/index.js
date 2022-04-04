@@ -3,7 +3,6 @@ import VueRouter from 'vue-router'
 import Login from '@/components/login/Login' // 登录页
 import Register from '@/components/Register' // 注册页
 import Index from '@/components/Index' // 验证页
-import Scan from '@/components/Scan' // 扫码
 import Auth from '@/components/Auth' // 验证码
 import Home from '@/components/Home' // 主页
 import Hot from '@/components/Hot' // 热点页
@@ -51,16 +50,6 @@ const routes = [
     component: Index,
     meta: {
       title: '验证',
-      index: 2, 
-      requiresAuth: false 
-    }
-  },
-  { // 扫码登录
-    path: '/scan',
-    name: 'Scan',
-    component: Scan,
-    meta: {
-      title: '扫码登录',
       index: 2, 
       requiresAuth: false 
     }

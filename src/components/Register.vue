@@ -53,13 +53,12 @@
     <div class="nick">
       <van-field
           v-model="nickname"
-          label="文本"
+          label="昵称"
           left-icon="contact-o"
           placeholder="请输入昵称"
-          @change="nickChangeHandle"
         />
     </div>
-    <div class="submitBtn" @click="submitRegister">
+    <div class="submitBtn" @click="nickChangeHandle">
       完成注册，开启云音乐
     </div>
   </div>
@@ -78,8 +77,8 @@ Vue.use(Field);
 export default {
   data () {
     return {
-      phone: '15039947930',
-      password: 'aasdf123455',
+      phone: '',
+      password: '',
       nickname: '',
       // 手机号正则
       tellPattern: /^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/,
@@ -155,10 +154,28 @@ export default {
       const res = await this.$http.post(__Config.checkNickname, {
         nickname: this.nickname
       })
+      if (res.code === 200 && res.duplicated) {
+        return this.$toast('昵称已占用')
+      }
+      // console.log(res)
       // 如果重复， 提醒更改
       // 如果不重复，提交注册
       const res2 = await this.submitRegister()
-
+      // console.log(res2)
+      // 注册失败， 返回登录页
+      if (res2.code !== 200) {
+        this.$router.push('/index')
+        return this.$toast('注册失败！')
+      }
+      // 注册成功， 去登录
+      const rightData = {
+        id: res2.account.id,
+        cookie: '',
+        token: res2.token
+      }
+      this.$store.commit('saveUser', rightData)
+      // 跳转到home
+      this.$router.push('/home')
     },
     // 提交注册
     async submitRegister () {
@@ -262,7 +279,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-content: center;
+  align-items: center;
   .submitBtn {
     width: 80%;
     height: 40px;
@@ -271,6 +288,9 @@ export default {
     text-align: center;
     line-height: 40px;
     font-size: 20px;
+  }
+  .van-field {
+    margin: 15px 0;
   }
 }
 .box {

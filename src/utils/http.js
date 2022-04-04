@@ -5,7 +5,9 @@ Vue.use(Toast)
 
 // 新建一个axios实例，并配置
 const http = axios.create({
-  baseURL: 'http://localhost:3000'
+  baseURL: 'http://localhost:3000',
+  // 允许跨域请求携带cookie
+  withCredentials: true
 })
 
 // 响应拦截

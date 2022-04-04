@@ -29,7 +29,7 @@
       </van-row>
       <van-row>
         <div style="margin: 16px;">
-          <van-button round block type="info" native-type="submit">登录</van-button>
+          <van-button round block type="danger" native-type="submit">登录</van-button>
         </div>
       </van-row>
       
@@ -98,7 +98,7 @@ export default {
       }
       const data = await this.$http.post(__Config.getLogo, params)
       if (data.code !== 200) {
-        return Toast('用户名密码错误！')
+        return this.$toast('用户名密码错误！')
       }
       // 登陆成功
       // 存储cookie
@@ -122,35 +122,48 @@ export default {
     async scanHandle () {
       this.overlayShow = true
       // key
-      const res = await this.$http.post(__Config.getqrkey, { withCredentials: true })
+      const res = await this.$http.post(__Config.getqrkey)
       if (res.code !== 200) {
         return this.$toast('二维码获取失败')
       }
       this.key = res.data.unikey
       // 成功得到key，根据key生成二维码
-      const res1 = await this.$http.post(__Config.createqr, { key: this.key, withCredentials: true, qrimg: true })
+      const res1 = await this.$http.post(__Config.createqr, { key: this.key, qrimg: true })
       if (res1.code !== 200) {
         return this.$toast('二维码获取失败')
       }
       this.qrimg = res1.data.qrimg
       // 轮询验证扫码状态
       this.timer = setInterval(async () => {
-        const res2 = await this.$http.post(__Config.checkstatus, { key: this.key, withCredentials: true })
-        document.cookie = res2.cookie
+        const res2 = await this.$http.post(__Config.checkstatus, { key: this.key })
+        // document.cookie = res2.cookie
         if (res2.code === 800) {
           clearInterval(this.timer)
         }
         if (res2.code === 803) {
           clearInterval(this.timer)
-          alert('授权登录成功')
-          await this.getStatus()
+          // alert('授权登录成功')
+          const res = await this.getStatus()
+          if (res.code !== 200) {
+            return this.$toast('登陆失败！')
+          }
+          // 成功
+          const rightData = {
+            id: res.account.id,
+            cookie: '',
+            token: ''
+          }
+          // 提交一个mutation，通过store管理登录信息rightData, 并存储到localstaroge
+          this.$store.commit('saveUser', rightData)
+          // 跳转到home
+          this.$router.push('/home')
         }
       }, 3000)
     },
     // 获取登录状态
     async getStatus () {
-      const res = await this.$http.post(__Config.getStatus, { withCredentials: true })
-      console.log(res)
+      const res = await this.$http.post(__Config.getStatus)
+      return res.data
     },
     // 验证码登录
     authHandle () {

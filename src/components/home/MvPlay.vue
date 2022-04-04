@@ -68,18 +68,34 @@ export default {
   methods: {
     // 获取视频url
     async getMvUrl () {
-      const res = await this.$http.get(__Config.getMvUrl, { id: this.$route.query.id})
+      let res
+      if (this.$route.query.type == 1) {
+         res = await this.$http.get(__Config.getVideoUrl, { id: this.$route.query.id})
+      } else {
+         res = await this.$http.get(__Config.getMvUrl, { id: this.$route.query.id})
+      }
+      // console.log(res)
       if (res.code !== 200) {
         return this.$toast('MV请求失败')
       }
-      this.url = res.data.url
+      if (this.$route.query.type == 1) {
+         this.url = res.urls[0].url
+      } else {
+        this.url = res.data.url
+      }
+      
       // 在状态更新后初始化播放器
       this.initVideo()
       // console.log(res)
     },
     // 获取MV信息
     async getMvInfo () {
-      const res = await this.$http.get(__Config.getMvInfo, { mvid: this.$route.query.id})
+      let res
+      if (this.$route.query.type == 1) {
+         res = await this.$http.get(__Config.getVideoInfo, { vid: this.$route.query.id})
+      } else {
+         res = await this.$http.get(__Config.getMvInfo, { mvid: this.$route.query.id})
+      }
       if (res.code !== 200) {
         return this.$toast('MVInfo请求失败')
       }
