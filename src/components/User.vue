@@ -9,7 +9,7 @@
     </van-sticky>
     <div class="card">
       <!-- 头像 -->
-      <div class="avatar">
+      <div class="avatar" @click="overlayShow = true">
         <img :src="userProfile.avatarUrl" alt="">
       </div>
       <div style="height: 50px"></div>
@@ -47,6 +47,18 @@
       close-on-click-action
       @select="loginout"
     />
+    <!-- 遮罩层 -->
+    <van-overlay :show="overlayShow" @click="overlayShow = false">
+      <div class="wrapper">
+        <div class="block">
+          <img :src="userProfile.avatarUrl" alt="">
+        </div>
+        <div class="btns">
+          <div class="save" @click.stop="saveAvatar">保存图片</div>
+          <div class="change" @click.stop="changeAvatar">更换图像</div>
+        </div>
+      </div>
+    </van-overlay>
   </div>
 </template>
 
@@ -58,6 +70,9 @@ import Vue from 'vue'
 import { Sticky } from 'vant'
 import { Popup } from 'vant'
 import { ActionSheet } from 'vant'
+import { Overlay } from 'vant'
+
+Vue.use(Overlay)
 
 Vue.use(ActionSheet)
 Vue.use(Popup)
@@ -70,6 +85,7 @@ export default {
   },
   data () {
     return {
+      overlayShow: false,
       userProfile: {},
       level: 0,
       popupShow: false,
@@ -111,7 +127,11 @@ export default {
         localStorage.removeItem('userInfo')
         this.$router.push('/index')
       }
-    }
+    },
+    // 更换头像
+    changeAvatar () { console.log('change') },
+    // 保存头像
+    saveAvatar () { console.log('save') }
 
   },
   computed: {
@@ -191,6 +211,43 @@ export default {
     text-align: center;
     color: red;
     font-weight: bold;
+  }
+}
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.block {
+  width: 100%;
+  background-color: #fff;
+  img {
+    display: block;
+    width: 100%;
+  }
+}
+.btns {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  padding-top: 20px;
+  div {
+    width: 20%;
+    height: 20px;
+    line-height: 20px;
+    color: #fff;
+    text-align: center;
+    border-radius: 15px;
+    padding: 5px 10px;
+  }
+  .change {
+    background: rgb(250, 10, 10);
+  }
+  .save {
+    background: rgba(0,0,0,.7);
   }
 }
 </style>
