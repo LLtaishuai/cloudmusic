@@ -26,7 +26,8 @@ const apiConfig = {
   getVideoCate: '/video/category/list', // 获取视频分类
   getVideoGroup: '/video/group', // 参数id：标签或分类id，获取分类下的视频
   getVideoUrl: '/video/url', // 参数id
-  getVideoInfo: '/video/detail/info' // 参数vid
+  getVideoInfo: '/video/detail/info', // 参数vid
+  uploadAvatar: '/avatar/upload' // 更新头像 参数 imgSize 尺寸默认300 imgX imgY
 }
 
 export default apiConfig

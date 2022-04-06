@@ -55,7 +55,9 @@
         </div>
         <div class="btns">
           <div class="save" @click.stop="saveAvatar">保存图片</div>
-          <div class="change" @click.stop="changeAvatar">更换图像</div>
+          <div class="change" @click.stop>更换图像
+            <input ref="avatar" type="file" id="avatar" @change="changeAvatar">
+          </div>
         </div>
       </div>
     </van-overlay>
@@ -71,7 +73,7 @@ import { Sticky } from 'vant'
 import { Popup } from 'vant'
 import { ActionSheet } from 'vant'
 import { Overlay } from 'vant'
-
+import axios from 'axios'
 Vue.use(Overlay)
 
 Vue.use(ActionSheet)
@@ -94,8 +96,9 @@ export default {
     }
   },
   methods: {
+    // 获取用户信息
     async getUserDetail () {
-      const res = await this.$http.post(__Config.getUserDetail, { uid: this.id, cache: true })
+      const res = await this.$http.post(__Config.getUserDetail, { uid: this.id })
       if (res.code !== 200) {
         return this.$toast('获取用户信息失败')
       }
@@ -129,9 +132,48 @@ export default {
       }
     },
     // 更换头像
-    changeAvatar () { console.log('change') },
+    async changeAvatar () { 
+      // 获取上传的文件，利用FormData接口组装参数
+      const file = this.$refs.avatar.files[0]
+      const formData = new FormData()
+      formData.append('imgFile', file)
+      // 获取imgSize
+      // const res1 = await this.getImgSize(file)
+      // const res = await this.$http.post(__Config.uploadAvatar, { formData }, { headers: {'Content-Type': 'multipart/form-data'}})
+      const res = await axios({
+        method: 'post',
+        url: `http://localhost:3000${__Config.uploadAvatar}?timestamp=${Date.now()}`,
+        headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        withCredentials: true,
+        data: formData,
+      })
+      if (res.data.code !== 200) {
+        return this.$toast('头像更新失败')
+      }
+      await this.getUserDetail()
+      this.overlayShow = false
+     },
     // 保存头像
-    saveAvatar () { console.log('save') }
+    saveAvatar () { console.log('save') },
+    // 获取图片的宽高
+    getImgSize (file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader()
+        reader.readAsDataURL(file)
+        reader.onload = function (event) {
+          const img = new Image()
+          img.src = event.target.result
+          img.onload = function () {
+            resolve({
+              width: this.width,
+              height: this.height
+            })
+          }
+        }
+      })
+    }
 
   },
   computed: {
@@ -245,6 +287,15 @@ export default {
   }
   .change {
     background: rgb(250, 10, 10);
+    position: relative;
+    input {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      opacity: 0;
+    }
   }
   .save {
     background: rgba(0,0,0,.7);

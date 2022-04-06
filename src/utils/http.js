@@ -44,10 +44,11 @@ http.interceptors.request.use(config => {
 
 // 封装get、post请求
 
-const get = (url, params) => {
+const get = (url, params, config) => {
   params = params || {}
+  config = config || {}
   return new Promise((resolve, reject) => {
-    http.get(url, { params: params})
+    http.get(url, { params: params}, config)
     .then(res => {
       resolve(res.data)
     }).catch(err => {
@@ -55,10 +56,11 @@ const get = (url, params) => {
   })
   })
 }
-const post = (url, params) => {
+const post = (url, params, config) => {
   params = params || {}
+  config = config || {}
   return new Promise((resolve, reject) => {
-    http.post(url, params)
+    http.post(url, params, config)
     .then(res => {
       resolve(res.data)
     }).catch(err => {

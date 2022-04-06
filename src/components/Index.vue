@@ -167,7 +167,12 @@ export default {
     },
     // 验证码登录
     authHandle () {
-      this.$router.push('/auth')
+      this.$router.push({
+        path: '/auth',
+        query: {
+          phone: this.formInfo.username
+        }
+      })
     },
     // 点击遮罩层
     overlayClick () {
